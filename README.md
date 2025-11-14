@@ -12,7 +12,7 @@ The course emulates a bottom-up proteomics experiment:
 - **Day 1:** FASTA parsing and protein digestion fundamentals ([tutorials/1_protein_digestion.ipynb](tutorials/1_protein_digestion.ipynb))
 - **Day 2:** Liquid chromatography simulation ([tutorials/2_liquid_chromatography.ipynb](tutorials/2_liquid_chromatography.ipynb))
 - **Day 3:** MS1/MS2 spectra simulation ([tutorials/3_mass_spectra_simulation.ipynb](tutorials/3_mass_spectra_simulation.ipynb))
-- **Day 4:** Build a reusable Python package from the functions ([4_build_your_own_package.md](4_build_your_own_package.md))
+- **Day 4:** Build a reusable Python package from the functions ([tutorials/4_build_your_own_package.md](tutorials/4_build_your_own_package.md))
 - **Day 5:** Publish the package, set up CI, and collaborate ([tutorials/5_publish_your_package.md](tutorials/5_publish_your_package.md))
 
 A final notebook ([tutorials/ms_simulation_final.ipynb](tutorials/ms_simulation_final.ipynb)) ties the package together for an end-to-end experiment.
