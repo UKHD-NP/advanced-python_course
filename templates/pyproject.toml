@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my_project_name"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "" }]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pytest", # Add all required dependencies
+]
+
+[tool.setuptools.packages.find]
+include = ["my_project_name*"]
