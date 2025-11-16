@@ -32,26 +32,38 @@ A final notebook ([tutorials/ms_simulation_final.ipynb](tutorials/ms_simulation_
 └── README.md
 ```
 ## Recommendations
-If you work in Google Colab, mount your Drive and switch into the repository folder so notebooks can read/write data:
+If you work in Google Colab, mount your Drive and switch into the repository folder so notebooks can read/write data. Pick the snippet that best matches your situation.
 
+**1. You already know where the repo lives**
 ```python
-# Mount the Google Drive for Colab users
 from google.colab import drive
 drive.mount('/content/drive')
 
 import os
 
-notebook_filename = '1_protein_digestion.ipynb'
-notebook_path = None
+repo_path = '/content/drive/MyDrive/path/to/advanced-python_course/tutorials'
+os.chdir(repo_path)
+print('Directory changed to:', os.getcwd())
+```
 
-for root, dirs, files in os.walk('/content/drive/MyDrive'):
-    if notebook_filename in files:
-        notebook_path = root
+**2. You only know the notebook name**
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import os
+
+target_notebook = '1_protein_digestion.ipynb'
+notebook_dir = None
+
+for root, _, files in os.walk('/content/drive/MyDrive'):
+    if target_notebook in files:
+        notebook_dir = os.path.dirname(os.path.join(root, target_notebook))
         break
 
-if notebook_path:
-    os.chdir(notebook_path)
-    print("Directory changed to:", notebook_path)
+if notebook_dir:
+    os.chdir(notebook_dir)
+    print('Directory changed to:', notebook_dir)
 else:
-    print(f"Notebook file '{notebook_filename}' not found in Google Drive.")
+    print(f\"Notebook '{target_notebook}' not found in Google Drive.\")
 ```
