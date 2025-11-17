@@ -18,8 +18,24 @@ The course emulates a bottom-up proteomics experiment:
 A final notebook ([tutorials/ms_simulation_final.ipynb](tutorials/ms_simulation_final.ipynb)) ties the package together for an end-to-end experiment.
 
 ## Getting started
-1. Clone this repository.
-2. Install dependencies from `requirements.txt` (e.g., via `pip install -r requirements.txt`) and follow each tutorial in order.
+1. Clone this repository (e.g. from terminal):
+```
+cd mytargetdir
+git clone https://github.com/UKHD-NP/advanced-python_course.git
+cd advanced-python_course
+```
+2. Install miniconda following the instructions on (if not already installed): <br>
+https://www.anaconda.com/docs/getting-started/miniconda/install#macos-terminal-installer
+3. Create conda environment: 
+```
+conda create --name advanced-python_course python=3.10 -y
+conda activate advanced-python_course
+```
+4. Install dependencies from `requirements.txt`:
+```
+pip install -r requirements.txt
+conda deactivate advanced-python_course
+```
 
 ## Folder structure
 ```
