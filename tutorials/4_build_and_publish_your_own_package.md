@@ -135,18 +135,18 @@ From this point onward you will iterate through each module, copying the ⭐ ess
 Move the first essential function:
 
 1. Open `proteosim/file_handling.py` and paste the ⭐ `read_fasta` implementation from Tutorial 1. Keep the NumPy-style docstring intact so the package remains well documented.
-2. Save the file and switch to `ms_experiment_final.ipynb`. Import your package and call the function to make sure it can read the FASTA file:
+2. Expose the function through your package API by adding an import to `proteosim/__init__.py`:
+   ```python
+   from .file_handling import read_fasta
+   ```
+   Keeping the initializer updated ensures `import proteosim as ps; ps.read_fasta(...)` keeps working even after you reorganize modules—otherwise users would have to import from the nested module (`from proteosim.file_handling import read_fasta`) every time.
+3. Save the file and switch to `ms_experiment_final.ipynb`. Import your package and call the function to make sure it can read the FASTA file:
    ```python
    import proteosim as ps
    proteins = ps.read_fasta("data/sample_proteins.fasta")
    len(proteins)
    ```
    Running this notebook cell confirms that the editable install updates immediately.
-3. Expose the function through your package API by adding an import to `proteosim/__init__.py`:
-   ```python
-   from .file_handling import read_fasta
-   ```
-   Keeping the initializer updated ensures `import proteosim as ps; ps.read_fasta(...)` keeps working even after you reorganize modules—otherwise users would have to import from the nested module (`from proteosim.file_handling import read_fasta`) every time.
 4. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convention for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
 
 5. Run the test workflow from your repository root:
@@ -179,10 +179,7 @@ You will repeat the same workflow described in the numbered steps above (copy fu
 Next, add the functions that allow you to perform the protein digestion steps.
 
 1. In `proteosim/protein_digestion.py`, paste the ⭐ essential functions from Tutorial 1: `digest_protein_sequence`, `digest_protein_collection`, and `compute_sequence_coverage`. Optionally also save the variable `enzyme_cleavage_patterns` if you want to be able to access protease cleave patterns directly using your package.
-2. In `ms_experiment_final.ipynb`, extend your workflow to:
-   - Digest the protein sequence dictionary with `ps.digest_protein_collection` with a protease of your choice.
-   - Calculate sequence coverage for a selected protein using `compute_sequence_coverage`.
-3. Update `proteosim/__init__.py` so the digestion utilities are available when someone runs `import proteosim as ps`:
+2. Update `proteosim/__init__.py` so the digestion utilities are available when someone runs `import proteosim as ps`:
    ```python
    from .protein_digestion import (
        enzyme_cleavage_patterns,
@@ -191,6 +188,9 @@ Next, add the functions that allow you to perform the protein digestion steps.
        compute_sequence_coverage,
    )
    ```
+3. In `ms_experiment_final.ipynb`, extend your workflow to:
+   - Digest the protein sequence dictionary with `ps.digest_protein_collection` with a protease of your choice.
+   - Calculate sequence coverage for a selected protein using `compute_sequence_coverage`.
 4. Copy the corresponding ✅ tests into `tests/test_protein_digestion.py`, keeping the `test_*` naming style.
 5. Execute `pytest -v tests/test_protein_digestion.py` (or `pytest -v tests`) and fix any issues before moving on.
 6. Commit and push the updated module, tests, and notebook changes.
