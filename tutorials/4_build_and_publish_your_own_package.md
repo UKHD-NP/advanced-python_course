@@ -170,6 +170,7 @@ Move the first essential function:
      It should run on ubuntu-latest, set up Python 3.10, install dependencies with pip, and execute pytest. My dependencies are <your python dependencies>.
      Trigger it on push or pull_request events targeting main or master.
      ```
+   - Make sure you replace <your python dependencies> above with your project's dependencies
    - Paste the generated YAML formated text into `.github/workflows/tests.yml`, commit it, and push. GitHub will automatically run the workflow on your next push; check the “Actions” tab or the ✅/❌ symbol next to your commit to confirm it passes.
 
 You will repeat the same workflow described in the numbered steps above (copy function → expose it in `__init__.py` → test → commit) for every module in the package.
