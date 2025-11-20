@@ -143,21 +143,26 @@ Move the first essential function:
    len(proteins)
    ```
    Running this notebook cell confirms that the editable install updates immediately.
-3. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convention for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
+3. Expose the function through your package API by adding an import to `proteosim/__init__.py`:
+   ```python
+   from .file_handling import read_fasta
+   ```
+   Keeping the initializer updated ensures `import proteosim as ps; ps.read_fasta(...)` keeps working even after you reorganize modules—otherwise users would have to import from the nested module (`from proteosim.file_handling import read_fasta`) every time.
+4. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convention for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
 
-4. Run the test workflow from your repository root:
+5. Run the test workflow from your repository root:
    ```bash
    pytest -v tests
    ```
    Fix any import paths or assertion errors before continuing. If pytest reports failures, resolve them immediately and re-run the suite until everything passes—never commit code with broken tests.
-5. Commit and push the changes:
+6. Commit and push the changes:
    ```bash
    git add proteosim/file_handling.py tests/test_file_handling.py ms_experiment_final.ipynb
    git commit -m "Add file_handling.py implementation and tests"
    git push
    ```
 
-6. Set up automated testing with GitHub Actions:
+7. Set up automated testing with GitHub Actions:
    - A GitHub Actions workflow runs predefined tasks (jobs) on GitHub’s servers whenever certain events happen in your repository (pushes, pull requests, scheduled runs). Our goal is to automatically execute `pytest` so you catch bugs directly on the Github interface too.
    - Create a workflow file `proteosim/.github/workflows/tests.yml` that installs Python, sets up dependencies, and runs `pytest` on the trigger events: push to `main`/`master` and create pull request. Github will automatically detect this file and run the action.
    - If you have access to a powerful LLM such as ChatGPT-5, let it draft the workflow for you — it has been trained on thousands of Github actions files. For example, you can prompt:
@@ -168,7 +173,7 @@ Move the first essential function:
      ```
    - Paste the generated YAML formated text into `.github/workflows/tests.yml`, commit it, and push. GitHub will automatically run the workflow on your next push; check the “Actions” tab or the ✅/❌ symbol next to your commit to confirm it passes.
 
-You will repeat the same workflow described in the numbered steps above (1-5) for every module in the package.
+You will repeat the same workflow described in the numbered steps above (copy function → expose it in `__init__.py` → test → commit) for every module in the package.
 
 ## 8. Module `protein_digestion`
 Next, add the functions that allow you to perform the protein digestion steps.
@@ -177,10 +182,19 @@ Next, add the functions that allow you to perform the protein digestion steps.
 2. In `ms_experiment_final.ipynb`, extend your workflow to:
    - Digest the protein sequence dictionary with `ps.digest_protein_collection` with a protease of your choice.
    - Calculate sequence coverage for a selected protein using `compute_sequence_coverage`.
-3. Copy the corresponding ✅ tests into `tests/test_protein_digestion.py`, keeping the `test_*` naming style.
-4. Execute `pytest -v tests/test_protein_digestion.py` (or `pytest -v tests`) and fix any issues before moving on.
-5. Commit and push the updated module, tests, and notebook changes.
-6. Check the GitHub Actions tab to ensure the automated tests run successfully for this push.
+3. Update `proteosim/__init__.py` so the digestion utilities are available when someone runs `import proteosim as ps`:
+   ```python
+   from .protein_digestion import (
+       enzyme_cleavage_patterns,
+       digest_protein_sequence,
+       digest_protein_collection,
+       compute_sequence_coverage,
+   )
+   ```
+4. Copy the corresponding ✅ tests into `tests/test_protein_digestion.py`, keeping the `test_*` naming style.
+5. Execute `pytest -v tests/test_protein_digestion.py` (or `pytest -v tests`) and fix any issues before moving on.
+6. Commit and push the updated module, tests, and notebook changes.
+7. Check the GitHub Actions tab to ensure the automated tests run successfully for this push.
 
 ## 9. Module `liquid_chromatography`
 Follow the same numbered workflow steps 1-5 as before, but this time focus on the chromatography logic:
@@ -235,3 +249,5 @@ Ensure others can run your package by partnering with a classmate for cross-test
 4. Provide feedback on each other’s READMEs — clear installation and usage instructions are what make a package usable by someone new.
 
 This exercise validates that your project is reproducible and helps you spot missing dependencies or unclear directions before sharing it more widely.
+
+Since you are already checking out your partner's repository, go ahead and star each other’s repositories on GitHub — stars act as public bookmarks and social proof that a project is useful, helping others discover well-maintained tools.
