@@ -2,7 +2,7 @@
 
 > 🤖 **AI co-pilot reminder:** Modern LLMs like ChatGPT-5 have been trained on thousands of Python packages and are surprisingly good at guiding packaging tasks. Feel free to ask an LLM to explain steps, draft templates, or suggest improvements as you work.
 
-This tutorial guides you through turning the functions from Tutorials 1–3 into a minimal Python package, installing it, running unit tests, practicing typical Git workflows, and publishing the finished project on GitHub. We will go step by step so you can transform research code into a reusable tool and keep every change tracked from the very first commit. Make sure you have a GitHub account available, since we will push to a remote repository as part of the workflow.
+This tutorial guides you through turning the functions from Tutorials 1–3 into a minimal Python package, installing it, running unit tests, practicing typical Git workflows, and publishing the finished project on GitHub. We will go step by step so you can transform research code into a reusable tool and keep every change tracked from the very first commit. Make sure you have a GitHub account available, since we will push to a remote repository as part of the workflow. You also need a Personal Access Token (classic) for HTTPS pushes: go to **GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)**, click **Generate new token (classic)**, scope it to `repo`, and store it securely (password manager or `.git-credentials`). You will paste this token when Git prompts for a password during `git push`.
 
 
 > 🧩 **Tipp**
@@ -33,7 +33,7 @@ You now have a fresh local copy of the repository you initialized on GitHub that
 Because you cloned from GitHub, the repository already contains the hidden `.git/` directory. Confirm that Git is active by running `git status` inside the project root; you should see a clean working tree with the files that GitHub created online. If you skipped the cloning step and created the folder locally, run `git init` now to start tracking changes before proceeding.
 
 ## 3. Create an initial README
-`README.md` is the landing page for anyone visiting your repository. It should answer three questions:
+`README.md` is the landing page for anyone visiting your repository. Markdown is the lightweight markup language that powers GitHub READMEs and lets you add headings, lists, links, and inline code. If you have not used Markdown before, skim the [Markdown Guide cheat sheet](https://www.markdownguide.org/cheat-sheet/) or prompt your preferred LLM for a short tutorial so you know which formatting options are available. Your README should answer three questions:
 - What does this project do?
 - What are the requirements or installation steps?
 - How can someone use it?
@@ -81,21 +81,21 @@ proteosim/
 │   ├── file_handling.py
 │   ├── protein_digestion.py
 │   ├── liquid_chromatography.py
-│   └── simulate_mass_spectra.py
+│   └── mass_spectra_simulation.py
 └── tests/
     ├── __init__.py
     ├── test_file_handling.py
     ├── test_protein_digestion.py
     ├── test_liquid_chromatography.py
-    └── test_simulate_mass_spectra.py
+    └── test_mass_spectra_simulation.py
 ```
 
 Create the directories and empty files. You can do this quickly from the terminal:
 ```bash
 mkdir -p proteosim tests
 touch proteosim/__init__.py tests/__init__.py
-touch proteosim/file_handling.py proteosim/protein_digestion.py proteosim/liquid_chromatography.py proteosim/simulate_mass_spectra.py
-touch tests/test_file_handling.py tests/test_protein_digestion.py tests/test_liquid_chromatography.py tests/test_simulate_mass_spectra.py
+touch proteosim/file_handling.py proteosim/protein_digestion.py proteosim/liquid_chromatography.py proteosim/mass_spectra_simulation.py
+touch tests/test_file_handling.py tests/test_protein_digestion.py tests/test_liquid_chromatography.py tests/test_mass_spectra_simulation.py
 ```
 If you prefer a graphical approach, create the folders and empty files manually using your file manager, mirroring the same naming scheme.
 
@@ -113,10 +113,9 @@ Before you start filling the module files with real code, install the package lo
 From the project root (next to `pyproject.toml`) activate your course virtual environment and run:
 
 ```bash
-pip install -e .
+pip install -e .  # -e flag enables editable mode
 ```
-
-The `-e` flag keeps pip pointing at your source directory. Any changes to files in `proteosim/` are immediately available to notebooks or scripts without reinstalling. You can verify the install inside a Python shell:
+You can verify the install inside a Python shell:
 
 ```python
 import proteosim as ps
@@ -157,7 +156,7 @@ Move the first essential function:
    Fix any import paths or assertion errors before continuing. If pytest reports failures, resolve them immediately and re-run the suite until everything passes—never commit code with broken tests.
 6. Commit and push the changes:
    ```bash
-   git add proteosim/file_handling.py tests/test_file_handling.py ms_experiment_final.ipynb
+   git add proteosim/file_handling.py tests/test_file_handling.py
    git commit -m "Add file_handling.py implementation and tests"
    git push
    ```
@@ -203,10 +202,10 @@ Follow the same numbered workflow steps 1-5 as before, but this time focus on th
 2. Use `ms_experiment_final.ipynb` to validate the new functionality and to continue building your final experiment notebook: after digesting proteins, use your functions to predict the relative retention times for the pooled peptides, plot the chromatographic profile and to select a retention-time window of interest.
 3. [...]
 
-## 10. Module `simulate_mass_spectra`
+## 10. Module `mass_spectra_simulation`
 Finish by migrating the mass spectrometry functions:
 
-1. In `proteosim/simulate_mass_spectra.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz`, `calculate_mz_collection`, `plot_ms`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
+1. In `proteosim/mass_spectra_simulation.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz`, `calculate_mz_collection`, `plot_ms`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
 2. Extend `ms_experiment_final.ipynb` so that it performs the complete mass-spectrometry proteomics simulation: filter peptides using the retention-time window, compute masses/mz values, plot the MS1 spectrum, fragment the MATSR peptide to produce the fragment-ions and plot the MS2 spectrum.
 3. [...]
 
