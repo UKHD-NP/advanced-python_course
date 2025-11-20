@@ -1,4 +1,4 @@
-# Tutorial 6 – Build and Publish Your Proteomics Package
+# Tutorial 4 – Build and Publish Your Proteomics Package
 
 > 🤖 **AI co-pilot reminder:** Modern LLMs like ChatGPT-5 have been trained on thousands of Python packages and are surprisingly good at guiding packaging tasks. Feel free to ask an LLM to explain steps, draft templates, or suggest improvements as you work.
 
@@ -15,7 +15,7 @@ This tutorial guides you through turning the functions from Tutorials 1–3 into
 Start online so that every local change can be pushed immediately:
 
 1. Log into GitHub and click **New repository**.
-2. Enter a short, descriptive name (e.g. proteosim), set the visibility to public, and tick the boxes to create a `README.md` and select an open-source license (MIT or Apache 2.0 both work well). In the present tutorial we will refer to your package name as `proteosim`)
+2. Enter a short, descriptive name (e.g. proteosim), set the visibility to public, and tick the boxes to create a `README.md` and select an open-source license (MIT or Apache 2.0 both work well). In the present tutorial we will refer to your package name as `proteosim`.
 3. After the repository is created, copy the HTTPS URL and clone it locally:
    ```bash
    git clone https://github.com/<user>/proteosim.git
@@ -143,7 +143,7 @@ Move the first essential function:
    len(proteins)
    ```
    Running this notebook cell confirms that the editable install updates immediately.
-3. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convetion for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
+3. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convention for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
 
 4. Run the test workflow from your repository root:
    ```bash
@@ -163,7 +163,7 @@ Move the first essential function:
    - If you have access to a powerful LLM such as ChatGPT-5, let it draft the workflow for you — it has been trained on thousands of Github actions files. For example, you can prompt:
      ```
      Create a GitHub Actions workflow called "tests" for a Python project that uses pyproject.toml.
-     It should run on ubuntu-latest, set up Python 3.10, install dependencies with pip, and execute pytest. My dependecies are <your python dependences>.
+     It should run on ubuntu-latest, set up Python 3.10, install dependencies with pip, and execute pytest. My dependencies are <your python dependencies>.
      Trigger it on push or pull_request events targeting main or master.
      ```
    - Paste the generated YAML formated text into `.github/workflows/tests.yml`, commit it, and push. GitHub will automatically run the workflow on your next push; check the “Actions” tab or the ✅/❌ symbol next to your commit to confirm it passes.
@@ -214,7 +214,7 @@ With the core modules ready, finalize the environment and documentation so other
 
 Once these steps are complete, your package mirrors the full proteomics pipeline and can be executed end-to-end inside `ms_experiment_final.ipynb`.
 
-🎉 **Congratulations!** You now have a fully documented, tested, and published proteomics package. If your repository is public, anyone can discover it, clone it, or fork it to contribute. If it’s private, only collaborators you invite will see the code, so choose the visibility that fits your goals. Consider mentioning this project in applications or interviews — an GitHub repository showcasing your own functioning bioinformatics package is a strong addition to your portfolio.
+🎉 **Congratulations!** You now have a fully documented, tested, and published proteomics package. If your repository is public, anyone can discover it, clone it, or fork it to contribute. If it’s private, only collaborators you invite will see the code, so choose the visibility that fits your goals. Consider mentioning this project in applications or interviews — a GitHub repository showcasing your own functioning bioinformatics package is a strong addition to your portfolio.
 
 ## 12. Cross-test for reproducibility
 Ensure others can run your package by partnering with a classmate for cross-testing:
