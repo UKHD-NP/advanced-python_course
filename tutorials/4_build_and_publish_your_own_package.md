@@ -15,7 +15,7 @@ This tutorial guides you through turning the functions from Tutorials 1–3 into
 Start online so that every local change can be pushed immediately:
 
 1. Log into GitHub and click **New repository**.
-2. Enter a short, descriptive name (e.g. proteosim), set the visibility to public, and tick the boxes to create a `README.md` and select an open-source license (MIT or Apache 2.0 both work well). In the present tutorial we will refer to your package name as `proteosim`.
+2. Enter a short, descriptive name (e.g. proteosim), set the visibility to public, and tick the boxes to create a `README.md`, select a Python `.gitignore`, and select an open-source license (MIT or Apache 2.0 both work well). In the present tutorial we will refer to your package name as `proteosim`.
 3. After the repository is created, copy the HTTPS URL and clone it locally:
    ```bash
    git clone https://github.com/<user>/proteosim.git
@@ -30,7 +30,7 @@ Start online so that every local change can be pushed immediately:
 You now have a fresh local copy of the repository you initialized on GitHub that already contains placeholder `README.md` and `LICENSE` files. We will keep reshaping this repository and pushing updates throughout the tutorial. Because you cloned it, the folder is already under Git version control—`ls -a` will show the hidden `.git/` directory that tracks every commit.
 
 ## 2. Verify Git tracking (or initialize it)
-Because you cloned from GitHub, the repository already contains the hidden `.git/` directory. Confirm that Git is active by running `git status` inside the project root; you should see a clean working tree with the files that GitHub created online. If you skipped the cloning step and created the folder locally, run `git init` now to start tracking changes before proceeding.
+Because you cloned from GitHub, the repository already contains the hidden `.git/` directory. Confirm that Git is active by running `git status` inside the project root; you should see a clean working tree with the files that GitHub created online. If you skipped the cloning step and created the folder locally, run `git init` now to start tracking changes before proceeding. Notice that Git does not list build artifacts like `__pycache__`, `.ipynb_checkpoints`, or your virtual environment: GitHub’s Python `.gitignore` template filters those files. If you forgot to add it when creating the repository, download the official template from https://github.com/github/gitignore/blob/main/Python.gitignore and save it as `.gitignore` in the repository root before continuing.
 
 ## 3. Create an initial README
 `README.md` is the landing page for anyone visiting your repository. Markdown is the lightweight markup language that powers GitHub READMEs and lets you add headings, lists, links, and inline code. If you have not used Markdown before, skim the [Markdown Guide cheat sheet](https://www.markdownguide.org/cheat-sheet/) or prompt your preferred LLM for a short tutorial so you know which formatting options are available. Your README should answer three questions:
@@ -115,7 +115,8 @@ From the project root (next to `pyproject.toml`) activate your course virtual en
 ```bash
 pip install -e .  # -e flag enables editable mode
 ```
-You can verify the install inside a Python shell:
+
+Pip installs produces directories like `build/`, `dist/`, and `<package>.egg-info/`. Those artifacts should stay untracked because the Python-specific `.gitignore` ignores them automatically; if `git status` lists any of them, the `.gitignore` is missing and you should re-download the template from https://github.com/github/gitignore/blob/main/Python.gitignore. You can verify the install inside a Python shell:
 
 ```python
 import proteosim as ps
@@ -127,10 +128,11 @@ The path should resolve to the `proteosim` folder inside your repository.
 ## 7. First module `file_handling` and actions setup
 From this point onward you will iterate through each module, copying the ⭐ essential functions from the notebooks into the package, validating them in a dedicated notebook, and then copying the matching ✅ tests. Start by creating a working notebook that will become your final proteomics experiment script:
 
-1. In the repository root (outside the `proteosim/` package directory), create a blank `ms_experiment_final.ipynb`.
-2. This notebook serves two purposes:
+1. Inside the `tutorials/` directory (outside the `proteosim/` package folder), create a blank `ms_experiment_final.ipynb`.
+2. This notebook serves three purposes:
    - Quickly verify that the functions you move into the package behave as expected (`import proteosim as ps` and call the new function).
    - Assemble the final streamlined proteomics workflow you will later share with your peers.
+   - Provide the user of your package an example workflow.
 
 Move the first essential function:
 
@@ -140,7 +142,7 @@ Move the first essential function:
    from .file_handling import read_fasta
    ```
    Keeping the initializer updated ensures `import proteosim as ps; ps.read_fasta(...)` keeps working even after you reorganize modules—otherwise users would have to import from the nested module (`from proteosim.file_handling import read_fasta`) every time.
-3. Save the file and switch to `ms_experiment_final.ipynb`. Import your package and call the function to make sure it can read the FASTA file:
+3. Save the file and switch to `ms_experiment_final.ipynb`. Using a Python kernel, import your package and call the function to make sure it can read the FASTA file:
    ```python
    import proteosim as ps
    proteins = ps.read_fasta("data/sample_proteins.fasta")
@@ -149,7 +151,7 @@ Move the first essential function:
    Running this notebook cell confirms that the editable install updates immediately.
 4. Copy the ✅ test for `read_fasta` into `tests/test_file_handling.py`, rename the function name by adding a "test_" prefix to "test_read_fasta". Following the `test_*` naming convention for test functions is important as it allows the testing tool `pytest` to find the correct functions to test.
 
-5. Run the test workflow from your repository root:
+5. Run the test workflow from your repository root (install `pytest` in your virtual environment first if it is not already available: `pip install pytest`):
    ```bash
    pytest -v tests
    ```
@@ -163,7 +165,7 @@ Move the first essential function:
 
 7. Set up automated testing with GitHub Actions:
    - A GitHub Actions workflow runs predefined tasks (jobs) on GitHub’s servers whenever certain events happen in your repository (pushes, pull requests, scheduled runs). Our goal is to automatically execute `pytest` so you catch bugs directly on the Github interface too.
-   - Create a workflow file `proteosim/.github/workflows/tests.yml` that installs Python, sets up dependencies, and runs `pytest` on the trigger events: push to `main`/`master` and create pull request. Github will automatically detect this file and run the action.
+   - Create a workflow file `proteosim/.github/workflows/install_and_tests.yml` that installs Python, sets up dependencies, and runs `pytest` on the trigger events: push to `main`/`master` and create pull request. GitHub will automatically detect this file and run the action, giving you confidence that package installation and the entire test suite also succeed on GitHub’s servers, not just your laptop.
    - If you have access to a powerful LLM such as ChatGPT-5, let it draft the workflow for you — it has been trained on thousands of Github actions files. For example, you can prompt:
      ```
      Create a GitHub Actions workflow called "tests" for a Python project that uses pyproject.toml.
@@ -171,7 +173,7 @@ Move the first essential function:
      Trigger it on push or pull_request events targeting main or master.
      ```
    - Make sure you replace <your python dependencies> above with your project's dependencies
-   - Paste the generated YAML formated text into `.github/workflows/tests.yml`, commit it, and push. GitHub will automatically run the workflow on your next push; check the “Actions” tab or the ✅/❌ symbol next to your commit to confirm it passes.
+   - Paste the generated YAML formated text into `.github/workflows/install_and_tests.yml`, commit it, and push. GitHub will automatically run the workflow on your next push; check the “Actions” tab or the ✅/❌ symbol next to your commit to confirm it passes.
 
 You will repeat the same workflow described in the numbered steps above (copy function → expose it in `__init__.py` → test → commit) for every module in the package.
 
@@ -222,8 +224,8 @@ With the core modules ready, finalize the environment and documentation so other
    - Clear installation instructions (e.g., `pip install -r requirements.txt` followed by `pip install .`).
    - A description of what the package enables: expected inputs (FASTA proteins), intermediate processing steps (digestion, chromatography, MS simulation), and typical outputs (mz tables, fragment spectra).
    - A short overview of the functions in each module so newcomers immediately know how to run the workflow.
-   - A reference to the `ms_experiment_final.ipynb` notebook (placed either in `tutorials/` or the repo root) as an end-to-end example.
-3. Use your final experiment notebook as an example on how to use your package. To this end, move or copy the finished notebook into `tutorials/ms_experiment_final.ipynb` (or keep it in the root) and mention its location in the README as the quickest way to try the package.
+   - A reference to the `tutorials/ms_experiment_final.ipynb` notebook as the end-to-end example.
+3. Use your final experiment notebook as an example on how to use your package. Keep it in `tutorials/ms_experiment_final.ipynb` and mention this location in the README as the quickest way to try the package.
 4. Stage, commit, and push the new `requirements.txt`, README updates, and notebook placement.
 
 Once these steps are complete, your package mirrors the full proteomics pipeline and can be executed end-to-end inside `ms_experiment_final.ipynb`.
