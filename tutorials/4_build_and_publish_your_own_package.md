@@ -208,7 +208,7 @@ Follow the same numbered workflow steps 1-5 as before, but this time focus on th
 ## 10. Module `mass_spectra_simulation`
 Finish by migrating the mass spectrometry functions:
 
-1. In `proteosim/mass_spectra_simulation.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz`, `calculate_mz_collection`, `plot_ms`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
+1. In `proteosim/mass_spectra_simulation.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz_collection`, `plot_ms`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
 2. Extend `ms_experiment_final.ipynb` so that it performs the complete mass-spectrometry proteomics simulation: filter peptides using the retention-time window, compute masses/mz values, plot the MS1 spectrum, fragment the MATSR peptide to produce the fragment-ions and plot the MS2 spectrum.
 3. [...]
 
