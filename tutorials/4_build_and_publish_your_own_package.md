@@ -247,7 +247,7 @@ Ensure others can run your package by partnering with a classmate for cross-test
     cd <repo-name>
     pip install -e .  # -e in case you need to debug
     ```
-3. Follow their README to run `ms_experiment_final.ipynb`. You should obtain the same outputs as them (retention-time plots, MS spectra, mz tables). If discrepancies or errors appear, discuss them together and fix documentation or code gaps.
+3. Follow their README to run `ms_experiment_final.ipynb`. You should obtain the same outputs as them (retention-time plots, MS spectra, mz tables). If discrepancies or errors appear, discuss them together and fix documentation or code gaps. Feel free to also run their workflow with a real-world oriented fasta file such as [the E. coli fasta](../data/uniprotkb_reviewed_true_AND_taxonomy_id_2025_11_21.fasta) provided in this course's repository files. Remember to choose an appropiate retention time window and to pick a specific peptide for fragmentation and MS2 measurement.
 4. Provide feedback on each other’s READMEs — clear installation and usage instructions are what make a package usable by someone new.
 
 This exercise validates that your project is reproducible and helps you spot missing dependencies or unclear directions before sharing it more widely.
