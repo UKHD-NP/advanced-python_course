@@ -76,23 +76,25 @@ Now scaffold the directories that will hold your package code and tests. Aim for
 
 ```
 proteosim/
+├── data/
 ├── proteosim/
 │   ├── __init__.py
 │   ├── file_handling.py
 │   ├── protein_digestion.py
 │   ├── liquid_chromatography.py
 │   └── mass_spectra_simulation.py
-└── tests/
-    ├── __init__.py
-    ├── test_file_handling.py
-    ├── test_protein_digestion.py
-    ├── test_liquid_chromatography.py
-    └── test_mass_spectra_simulation.py
+├── tests/
+│   ├── __init__.py
+│   ├── test_file_handling.py
+│   ├── test_protein_digestion.py
+│   ├── test_liquid_chromatography.py
+│   └── test_mass_spectra_simulation.py
+└── tutorials/
 ```
 
 Create the directories and empty files. You can do this quickly from the terminal:
 ```bash
-mkdir -p proteosim tests
+mkdir -p data proteosim tests tutorials
 touch proteosim/__init__.py tests/__init__.py
 touch proteosim/file_handling.py proteosim/protein_digestion.py proteosim/liquid_chromatography.py proteosim/mass_spectra_simulation.py
 touch tests/test_file_handling.py tests/test_protein_digestion.py tests/test_liquid_chromatography.py tests/test_mass_spectra_simulation.py
@@ -102,6 +104,8 @@ If you prefer a graphical approach, create the folders and empty files manually 
 Your code will reside under the main code directory `<proteosim>` (also named source directory). `__init__.py` files tell Python that a directory should be treated as a module (so `import proteosim` works). They can be empty, but every package directory—including `tests/`—needs one. If you want certain functions to be part of the public API (e.g., `from proteosim import read_fasta`), import them in `proteosim/__init__.py` so users get a clean entry point.
 
 The `tests/` directory mirrors the modules in `proteosim/` with filenames prefixed by `test_`. This convention helps Pytest discover the right test suite automatically (`tests/test_file_handling.py` contains tests for `proteosim/file_handling.py`) and keeps your code and tests organized one-to-one.
+
+The `data` and `tutorials` directories are technically optional for package building. However, since proper documentation is part of package development and also part of the learning goals of this course, we will be including a tutorial workflow of your package which will be placed under `tutorials` and its input data will be located under `data`.
 
 Once the skeleton is in place, stage and commit the new directories with a descriptive commit message.
 
@@ -208,7 +212,7 @@ Follow the same numbered workflow steps 1-5 as before, but this time focus on th
 ## 10. Module `mass_spectra_simulation`
 Finish by migrating the mass spectrometry functions:
 
-1. In `proteosim/mass_spectra_simulation.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz_collection`, `plot_ms`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
+1. In `proteosim/mass_spectra_simulation.py`, paste the ⭐ essentials from Tutorial 3: `calculate_mol_mass`, `calculate_mol_mass_collection`, `calculate_mz_collection`, `plot_spectrum`, and `fragment_peptide`. Also save your `amino_acid_mass_dalton` dictionary here so you can easily access it from your package.
 2. Extend `ms_experiment_final.ipynb` so that it performs the complete mass-spectrometry proteomics simulation: filter peptides using the retention-time window, compute masses/mz values, plot the MS1 spectrum, fragment the MATSR peptide to produce the fragment-ions and plot the MS2 spectrum.
 3. [...]
 
