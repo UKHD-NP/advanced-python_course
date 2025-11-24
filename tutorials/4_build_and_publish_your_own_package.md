@@ -165,7 +165,7 @@ Move the first essential function:
 
 7. Set up automated testing with GitHub Actions:
    - A GitHub Actions workflow runs predefined tasks (jobs) on GitHub’s servers whenever certain events happen in your repository (pushes, pull requests, scheduled runs). Our goal is to automatically execute `pytest` so you catch bugs directly on the Github interface too.
-   - Create a workflow file `proteosim/.github/workflows/install_and_tests.yml` that installs Python, sets up dependencies, and runs `pytest` on the trigger events: push to `main`/`master` and create pull request. GitHub will automatically detect this file and run the action, giving you confidence that package installation and the entire test suite also succeed on GitHub’s servers, not just your laptop.
+   - Create a workflow file under the root of your repository `proteosim/.github/workflows/install_and_tests.yml` that installs Python, sets up dependencies, and runs `pytest` on the trigger events: push to `main`/`master` and create pull request. GitHub will automatically detect this file and run the action, giving you confidence that package installation and the entire test suite also succeed on GitHub’s servers, not just your laptop.
    - If you have access to a powerful LLM such as ChatGPT-5, let it draft the workflow for you — it has been trained on thousands of Github actions files. For example, you can prompt:
      ```
      Create a GitHub Actions workflow called "tests" for a Python project that uses pyproject.toml.
