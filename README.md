@@ -83,3 +83,23 @@ if notebook_dir:
 else:
     print(f\"Notebook '{target_notebook}' not found in Google Drive.\")
 ```
+
+## Improvements for next iteration of the course
+### Student feedback
+- [ ] Advertise the course better to the students: "advanced" python in the
+  sene that they learned package development skills, not that they learn how to
+  write more complex algorithms and code. Also communicate the coding skill
+  requirements well. Probably via HeiCo.
+- [ ] Provide clear instructions on how to obtain access to Datacamp WELL in advance
+- [ ] Testing course on Datacamp may have been overkill since we only used simple testing functions
+- [ ] Conda/VScode/Gcollab/environment setup session prior to practical week to
+  avoid overhead to actual tutorials. Maybe even with a script?
+- [ ] Problem: cloning repo and working direclty inside hinders pulling of changes to the tutorials. Solution? Work on tutorials in a separate directory
+- [ ] Great clarity, structure and objective setting, but for some more
+  advanced students the first tutorials were too easy, too much was given.
+  Solution? Hide proposed code under "hints" foldable sections. This way
+  advanced students have a greater challenge while less advanced can still
+  profit from templates.
+- [ ] For bigger groups, ensure enough power outlets in the room.
+### Content improvement
+- [ ] For exercise 5.12 use the E.coli fasta file and ask the students to compare different proteases as well as to plot the distribution of nr. of peptides per protein (fasta file already included in repo).
