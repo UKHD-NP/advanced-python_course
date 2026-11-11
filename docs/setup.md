@@ -203,15 +203,22 @@ python -m ipykernel install --user --name advanced-python_course --display-name 
 ## 4. LLM assistant
 **Why:** coding help. Parts of the course (e.g. writing the GitHub Actions workflow and the bonus exercises) suggest using an LLM to draft code, explain errors, or write tests.
 
-Any of these works. Create an account for at least one:
-- [ChatGPT](https://chatgpt.com)
-- [Claude](https://claude.ai)
-- [Gemini](https://gemini.google.com)
-- [GitHub Copilot](https://github.com/features/copilot), which works directly inside VS Code. It is free for verified students through the [GitHub Student Developer Pack](https://education.github.com/pack).
+Any of these works. Create an account for at least one. Each one works in the browser and also has a VS Code extension, so you can chat with it next to your code:
+
+| Assistant | Browser | VS Code extension (search in the Extensions view) |
+|---|---|---|
+| ChatGPT (OpenAI) | <https://chatgpt.com> | `Codex` (publisher: OpenAI) |
+| Claude (Anthropic) | <https://claude.ai> | `Claude Code` (publisher: Anthropic) |
+| Gemini (Google) | <https://gemini.google.com> | `Gemini Code Assist` (publisher: Google) |
+| GitHub Copilot | <https://github.com/copilot> | `GitHub Copilot` (publisher: GitHub) |
+
+- The browser version is enough for the course. The VS Code extension is optional.
+- Some extensions need a paid plan. Check the provider's website before you subscribe to anything.
+- GitHub Copilot is free for verified students through the [GitHub Student Developer Pack](https://education.github.com/pack).
 
 > Never paste tokens, passwords, or unpublished/sensitive data into an LLM. Always read and test generated code before using it.
 
-✅ **Check:** you can log in and get an answer to a simple question, e.g. *"What does `git status` do?"*
+✅ **Check:** you can log in and get an answer to a simple question, e.g. *"What does `git status` do?"* If you installed a VS Code extension, ask the same question in its chat panel inside VS Code.
 
 ---
 
