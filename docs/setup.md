@@ -238,7 +238,14 @@ Any of these works. Create an account for at least one. Each one works in the br
 ✅ **Check:** in Google Drive, the folder `My Drive/advanced-python_course` exists and contains `tutorials/` and `data/`.
 
 ### 5.2 Open a tutorial and switch into its folder
-Open a tutorial notebook from Google Drive (right-click → **Open with → Google Colaboratory**). At the top of the notebook, add a cell that installs the missing package, mounts your Drive, and switches into the repository folder so the notebook can read and write data. Pick the snippet that fits your situation.
+As in the local setup, do not edit the original notebooks (see [Working on the tutorials](../README.md#working-on-the-tutorials)). In Google Drive, right-click the notebook in `advanced-python_course/tutorials` → **Make a copy**, and rename the copy to e.g. `1_protein_digestion_edit.ipynb`. Keep it in the same `tutorials/` folder.
+
+To get updates of the course material later, run this in a Colab cell:
+```python
+!git -C /content/drive/MyDrive/advanced-python_course pull
+```
+
+Open your copy from Google Drive (right-click → **Open with → Google Colaboratory**). At the top of the notebook, add a cell that installs the missing package, mounts your Drive, and switches into the repository folder so the notebook can read and write data. Pick the snippet that fits your situation.
 
 **1. You already know where the repo lives**
 ```python
@@ -263,7 +270,7 @@ drive.mount('/content/drive')
 
 import os
 
-target_notebook = '1_protein_digestion.ipynb'
+target_notebook = '1_protein_digestion_edit.ipynb'
 notebook_dir = None
 
 for root, _, files in os.walk('/content/drive/MyDrive'):
