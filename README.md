@@ -18,24 +18,7 @@ The course emulates a bottom-up proteomics experiment:
 A final notebook ([tutorials/ms_simulation_final.ipynb](tutorials/ms_simulation_final.ipynb)) ties the package together for an end-to-end experiment.
 
 ## Getting started
-1. Clone this repository (e.g. from terminal):
-```
-cd mytargetdir
-git clone https://github.com/UKHD-NP/advanced-python_course.git
-cd advanced-python_course
-```
-2. Install miniconda following the instructions on (if not already installed): <br>
-https://www.anaconda.com/docs/getting-started/miniconda/install#macos-terminal-installer
-3. Create conda environment: 
-```
-conda create --name advanced-python_course python=3.10 -y
-conda activate advanced-python_course
-```
-4. Install dependencies from `requirements.txt`:
-```
-pip install -r requirements.txt
-conda deactivate advanced-python_course
-```
+Before the course, follow the setup guide: **[docs/setup.md](docs/setup.md)**. It covers the GitHub account and access token, Git, VS Code, Conda (via Miniforge), the course environment, and a Google Colab fallback.
 
 ## Folder structure
 ```
@@ -47,43 +30,6 @@ conda deactivate advanced-python_course
 ├── docs/                      # Reference materials
 └── README.md
 ```
-## Recommendations
-If you work in Google Colab, mount your Drive and switch into the repository folder so notebooks can read/write data. Pick the snippet that best matches your situation.
-
-**1. You already know where the repo lives**
-```python
-from google.colab import drive
-drive.mount('/content/drive')
-
-import os
-
-repo_path = '/content/drive/MyDrive/path/to/advanced-python_course/tutorials'
-os.chdir(repo_path)
-print('Directory changed to:', os.getcwd())
-```
-
-**2. You only know the notebook name**
-```python
-from google.colab import drive
-drive.mount('/content/drive')
-
-import os
-
-target_notebook = '1_protein_digestion.ipynb'
-notebook_dir = None
-
-for root, _, files in os.walk('/content/drive/MyDrive'):
-    if target_notebook in files:
-        notebook_dir = os.path.dirname(os.path.join(root, target_notebook))
-        break
-
-if notebook_dir:
-    os.chdir(notebook_dir)
-    print('Directory changed to:', notebook_dir)
-else:
-    print(f\"Notebook '{target_notebook}' not found in Google Drive.\")
-```
-
 ## Improvements for next iteration of the course
 ### Student feedback
 - [ ] Advertise the course better to the students: "advanced" python in the
