@@ -171,10 +171,8 @@ cd advanced-python_course
 
 conda create -n advanced-python_course python=3.10 -y
 conda activate advanced-python_course
-pip install -r requirements.txt ipykernel pytest
+pip install -r requirements.txt
 ```
-- `ipykernel` lets the environment run Jupyter notebooks.
-- `pytest` runs the unit tests in Tutorial 4.
 
 ✅ **Check:**
 ```bash
